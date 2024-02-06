@@ -1,0 +1,36 @@
+services:
+  application:
+    container_name: application
+    build:
+      dockerfile: ./docker/php/dockerfile.php
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - ${PORT_SERVER:-8080}:80
+    networks:
+      - testeInternos
+  mysql_database:
+    container_name: mysql_database
+    build: 
+      dockerfile: ./docker/database/dockerfile.mysql
+    env_file:
+      - .env
+    environment:
+      MYSQL_DATABASE: '${MYSQL_DATABASE}'
+      MYSQL_USER: '${MYSQL_USER}'
+      MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+    volumes:
+      - mysql:/var/lib/mysql
+      - /var/lib/mysql.sock
+    networks:
+      - testeInternos
+
+networks:
+  testeInternos:
+    driver: bridge
+
+volumes:
+  mysql:
+    name: 'volume_mysql'
+    driver: local
