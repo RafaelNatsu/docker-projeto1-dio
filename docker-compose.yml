@@ -11,8 +11,7 @@ services:
       - testeInternos
   mysql_database:
     container_name: mysql_database
-    build: 
-      dockerfile: ./docker/database/dockerfile.mysql
+    image: mysql:8.0
     env_file:
       - .env
     environment:
@@ -20,9 +19,12 @@ services:
       MYSQL_USER: '${MYSQL_USER}'
       MYSQL_PASSWORD: '${MYSQL_PASSWORD}'
       MYSQL_RANDOM_ROOT_PASSWORD: 1
+    ports:
+      - '3306:3306'
     volumes:
       - mysql:/var/lib/mysql
       - /var/lib/mysql.sock
+      - ./docker/database:/docker-entrypoint-initdb.d
     networks:
       - testeInternos
 

@@ -1,3 +1,4 @@
 TODO.md
 .env
 **/vendor/
+docker/database/*
