@@ -13,3 +13,6 @@ RUN install-php-extensions @composer
 
 # exemplo: Adicionar mysqli
 RUN install-php-extensions mysqli
+
+RUN a2enmod rewrite
+RUN service apache2 restart
