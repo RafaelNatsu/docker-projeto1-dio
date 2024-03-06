@@ -2,3 +2,6 @@ TODO.md
 .env
 **/vendor/
 docker/database/*
+/docker/apache/ssl/*
+/docker/certbot/*
+/docker/php/logs/*

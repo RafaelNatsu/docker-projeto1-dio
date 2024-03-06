@@ -5,13 +5,17 @@ services:
       dockerfile: ./docker/php/dockerfile.php
     volumes:
       - ./src:/var/www/html
+      - ./docker/php/logs/:/tmp/
     ports:
-      - ${PORT_SERVER:-8080}:80
+      - ${PORT_SERVER:-8080}:443
     networks:
       - testeInternos
-  mysql_database:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  mysql:
     container_name: mysql_database
-    image: mysql:8.0
+    image: mariadb:10.6.16
     env_file:
       - .env
     environment:
